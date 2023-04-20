@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <>
-      <div className="container py-2 px-4 flex justify-between">
+      <div className="py-4 px-4 flex justify-between shadow-lg w-100">
           <div>
             <a className=" text-4xl">絵日記</a>
           </div>
