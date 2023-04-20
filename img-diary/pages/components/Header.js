@@ -1,4 +1,8 @@
+import Button from "./Button";
 export default function Header() {
+  const login = () => {
+    console.log("aaa");
+  }
   return (
     <>
       <div className="py-4 px-4 flex justify-between shadow-lg w-100">
@@ -6,7 +10,7 @@ export default function Header() {
             <a className=" text-4xl">絵日記</a>
           </div>
           <div className="">
-            <a>aaaaa</a>
+            <Button onClick={login}>ログイン</Button>
           </div>
       </div>
     </>
