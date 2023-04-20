@@ -6,8 +6,8 @@ export default function Header() {
   return (
     <>
       <div className="py-4 px-4 flex justify-between shadow-lg w-100">
-          <div>
-            <a className=" text-4xl">絵日記</a>
+          <div className="text-3xl md:text-4xl flex items-baseline my-0">
+            <a className="pt-1">絵日記</a>
           </div>
           <div className="">
             <Button onClick={login}>ログイン</Button>
