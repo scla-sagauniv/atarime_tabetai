@@ -4,3 +4,4 @@
 
 azure-functions
 stability_sdk
+openai
