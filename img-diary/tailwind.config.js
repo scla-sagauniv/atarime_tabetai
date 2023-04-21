@@ -7,6 +7,8 @@ module.exports = {
   ],
   theme: {
     extend: {
+      opacity: ['disabled'],
+      cursor: ['disabled'],
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
