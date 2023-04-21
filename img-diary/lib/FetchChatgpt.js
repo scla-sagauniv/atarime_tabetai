@@ -8,7 +8,7 @@ export const FetchChatgpt = async (prompt) => {
             prompt
         })
 }
-  const endpoint = "https://atrm-functions.azurewebsites.net/api/HttpTrigger2?"
+  const endpoint = "https://atrm-functions.azurewebsites.net/api/HttpTrigger2?" // なぎがでぷろいしたやつ 変更可
   const res = await fetch(endpoint,param)
   const data = await res.json()
   return data
