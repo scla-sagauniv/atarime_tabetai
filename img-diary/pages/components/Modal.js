@@ -22,8 +22,10 @@ const Modal = props => {
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
       >
+        {/* Panelコンポーネントにプロップス渡す */}
           {React.cloneElement(props.children, {
             close: props.close,
+            saveValue: props.saveValue,
             viewValue: props.viewValue
           })}
       </div>
