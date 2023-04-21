@@ -9,7 +9,7 @@ import Panel from "./components/Panel";
 
 
 export default function Home() {
-  const addClass = "px-6 md:py-2 py-1 mx-2 md:mx-4 rounded bg-blue-500 text-white disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
+  const addClass = "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-cyan-200 text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
   // モーダルの状態
   const [isOpenModal, setIsOpenModal] = useState({
     state:false,
@@ -42,12 +42,12 @@ export default function Home() {
   return (
     <>
       <main>  
-        <div className='flex flex-col m-0'>
+        <div className='flex flex-col m-0 h-screen'>
           <Header />
           <div className='flex justify-center px-xl'>
             <div className='container px-4'>
-              <p className='text-center mt-20 text-xl md:text-3xl'>AIちゃんが絵日記書いてくれます</p>
-              <p className='text-center mt-10 text-xl md:text-3xl'>今日あった出来事を朝昼晩に分けて<br/>簡単に入力するとAIちゃんが絵日記にしてくれます！！</p>
+              <p className='text-center mb-20  mt-52 text-xl md:text-5xl font-bold '>AIちゃんの絵日記</p>
+              <p className='text-center my-10 text-xl md:text-3xl font-bold'>今日あった出来事を朝昼晩に分けて<br/>簡単に入力するとAIちゃんが絵日記にしてくれます！！</p>
               <div className='mx-auto my-10 flex justify-center'>
                 <Button type="button" onClick={() => toggleModal(true,1)} className={addClass}>
                   朝
