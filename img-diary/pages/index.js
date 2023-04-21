@@ -10,32 +10,44 @@ import Panel from "./components/Panel";
 
 export default function Home() {
   const addClass = "px-6 md:py-2 py-1 mx-2 md:mx-4 rounded bg-blue-500 text-white disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
+  // 入力フォームの状態
+  const[allValue, setAllValue] = useState({
+    morning: null,
+    noon: null,
+    evening: null,
+  });
+
+  // 入力フォーム保存
+  const saveValue = (time, tex) => {
+    setAllValue({...allValue, [time]:tex});
+  }
+
   // モーダルの状態
   const [isOpenModal, setIsOpenModal] = useState({
     state:false,
     kind:null,
   });
-
+  
   // モーダルの開閉処理
   const toggleModal = (e,i) => {
     let idx = null;
     if (e.target === e.currentTarget) {
       switch(i){
-        case 1:
+        case "morning":
           idx = i;
-          console.log(1);
+          console.log(idx);
           break;
-        case 2:
+        case "noon":
           idx = i;
-          console.log(2);
+          console.log(idx);
           break;
-        case 3:
+        case "evening":
           idx = i;
-          console.log(3);
+          console.log(idx);
           break;
       }
       setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx}); 
-      console.log("bbb");
+      console.log("セーブデータ"+allValue.morning);
     }
   };
 
@@ -49,17 +61,17 @@ export default function Home() {
               <p className='text-center mt-20 text-xl md:text-3xl'>AIちゃんが絵日記書いてくれます</p>
               <p className='text-center mt-10 text-xl md:text-3xl'>今日あった出来事を朝昼晩に分けて<br/>簡単に入力するとAIちゃんが絵日記にしてくれます！！</p>
               <div className='mx-auto my-10 flex justify-center'>
-                <Button type="button" onClick={() => toggleModal(true,1)} className={addClass}>
+                <Button type="button" onClick={() => toggleModal(true,"morning")} className={addClass}>
                   朝
                 </Button>
-                <Button type="button" onClick={() => toggleModal(true,2)} className={addClass}>
+                <Button type="button" onClick={() => toggleModal(true,"noon")} className={addClass}>
                   昼
                 </Button>
-                <Button type="button" onClick={() => toggleModal(true,3)} className={addClass}>
+                <Button type="button" onClick={() => toggleModal(true,"evening")} className={addClass}>
                   晩
                 </Button>
                 {isOpenModal.state && (
-                  <Modal close={toggleModal} viewKind={isOpenModal.kind} >
+                  <Modal close={toggleModal} saveValue={saveValue} viewValue={isOpenModal.kind} >
                     <Panel />
                   </Modal>
                 )}
