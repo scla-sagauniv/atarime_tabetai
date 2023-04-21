@@ -23,7 +23,8 @@ const Modal = props => {
         onMouseUp={onMouseUp}
       >
           {React.cloneElement(props.children, {
-            close: props.close
+            close: props.close,
+            viewValue: props.viewValue
           })}
       </div>
   );
