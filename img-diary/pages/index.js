@@ -18,45 +18,46 @@ export default function Home() {
     evening: "",
   });
 
+  
   const[addClassed , setAddClassed] = useState({
     morning: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
     noon: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
     evening: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",  
   });
- 
+  
   // const Classed =()=>{
-  //   if(allValue===null){
+    //   if(allValue===null){
   //     setAddClassed("px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl")
   //   }
 
   // }
-
+  
   // 入力フォーム保存
   const saveValue = (time, tex) => {
     setAllValue({...allValue, [time]:tex});
-
+    
     if(allValue[time]===""){
       console.log("nochange");
       setAddClassed({
         ...addClassed,[time]:"px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl"
       });
     }else{
-        console.log("change");
-        setAddClassed({
-          ...addClassed,[time]:"px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold text-black bg-cyan-200 shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl"
-        });
+      console.log("change");
+      setAddClassed({
+        ...addClassed,[time]:"px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold text-black bg-cyan-200 shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl"
+      });
     };  
   }
-
-  // モーダルの状態
-  const [isOpenModal, setIsOpenModal] = useState({
-    state:false,
-    kind:null,
-    takeValue:null
-  });
-
-  
-  // モーダルの開閉処理
+    
+    // モーダルの状態
+    const [isOpenModal, setIsOpenModal] = useState({
+      state:false,
+      kind:null,
+      takeValue:null
+    });
+    
+    
+    // モーダルの開閉処理
   const toggleModal = (e,i) => {
     let idx = null;
     if (e.target === e.currentTarget) {
@@ -65,25 +66,38 @@ export default function Home() {
           idx = i;
           console.log(idx);
           break;
-        case "noon":
-          idx = i;
-          console.log(idx);
-          break;
-        case "evening":
-          idx = i;
-          console.log(idx);
-          break;
-      }
-    
-      
-      setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx, takeValue: allValue[idx]}); 
-      console.log("セーブデータ朝"+allValue.morning);
-      console.log("セーブデータ昼"+allValue.noon);
-      console.log("セーブデータ夜"+allValue.evening);
+          case "noon":
+            idx = i;
+            console.log(idx);
+            break;
+            case "evening":
+              idx = i;
+              console.log(idx);
+              break;
+            }
+            
+            
+            setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx, takeValue: allValue[idx]}); 
+            console.log("セーブデータ朝"+allValue.morning);
+            console.log("セーブデータ昼"+allValue.noon);
+            console.log("セーブデータ夜"+allValue.evening);
     }
   };
   const hand_over =()=>{
+    
     console.log("zakoga");
+  }
+  const[tf , setTf]=useState(true);
+  const [color , setColor]=useState("bg-white");
+
+  const lockman = () => {
+    if(allValue.morning!=="" && allValue.noon!=="" && allValue.evening!==""){
+      setTf(false)
+      setColor("bg-cyan-200");
+    }else{
+      setTf(true)
+      setColor("bg-white");
+    }
   }
 
   return (
@@ -107,13 +121,13 @@ export default function Home() {
                 </Button>
                 {/* 参考演算子でisOpenModal.stateが真なら表示 */}
                 {isOpenModal.state && (
-                  <Modal close={toggleModal} saveValue={saveValue} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
+                  <Modal close={toggleModal} saveValue={saveValue} lockman={lockman} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
                     <Panel />
                   </Modal>
                 )}
               </div>
               <div className='flex justify-center '>
-                <Button  onClick={() => hand_over()} className="px-12 md:py-4  md: mx-12 rounded border-2 border-black font-bold bg-cyan-200 text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl">
+                <Button disabled={tf} onClick={() => hand_over()} className={`disabled:opacity-100 px-12 md:py-4  md: mx-12 rounded border-2 border-black font-bold ${color} text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl`}>
                   作成
                 </Button>
               </div>
