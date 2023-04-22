@@ -5,3 +5,5 @@
 azure-functions
 stability_sdk
 openai
+azure.identity
+azure.storage.blob
