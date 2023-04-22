@@ -26,6 +26,7 @@ const Modal = props => {
         {/* childrenをクローンして新しくPanelにプロップスを渡してる */}
           {React.cloneElement(props.children, {
             close: props.close,
+            lockman: props.lockman,
             saveValue: props.saveValue,
             viewValue: props.viewValue,
             takeValue:props.takeValue,

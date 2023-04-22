@@ -25,6 +25,7 @@ const Panel = props => {
   // 送信を押したときの処理
   const submit = e => {
     props.saveValue(formValue.idx, formValue.value); 
+    props.lockman();
     e.preventDefault();
     if (props.close) {
       props.close(e);
