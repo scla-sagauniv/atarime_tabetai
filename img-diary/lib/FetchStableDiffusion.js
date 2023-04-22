@@ -8,7 +8,7 @@ export const FetchStableDiffusion = async (prompt) => {
             prompt
         })
 }
-  const endpoint = "https://atrm-functions.azurewebsites.net/api/HttpTrigger1?"
+  const endpoint = "https://atrm-functions.azurewebsites.net/api/StableDiffusion-httptrigger?"
   const res = await fetch(endpoint,param)
   const data = await res.json()
   return data
