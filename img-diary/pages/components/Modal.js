@@ -28,7 +28,7 @@ const Modal = props => {
             close: props.close,
             saveValue: props.saveValue,
             viewValue: props.viewValue,
-            takeValue:props.takeValue
+            takeValue:props.takeValue,
           })}
       </div>
   );
