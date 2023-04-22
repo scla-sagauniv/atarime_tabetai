@@ -27,6 +27,7 @@ export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState({
     state:false,
     kind:null,
+    takeValue:null
   });
   
   // モーダルの開閉処理
@@ -47,8 +48,10 @@ export default function Home() {
           console.log(idx);
           break;
       }
-      setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx}); 
-      console.log("セーブデータ"+allValue.morning);
+      setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx, takeValue: allValue[idx]}); 
+      console.log("セーブデータ朝"+allValue.morning);
+      console.log("セーブデータ昼"+allValue.noon);
+      console.log("セーブデータ夜"+allValue.evening);
     }
   };
 
@@ -71,8 +74,9 @@ export default function Home() {
                 <Button type="button" onClick={() => toggleModal(true,"evening")} className={addClass}>
                   晩
                 </Button>
+                {/* 参考演算子でisOpenModal.stateが真なら表示 */}
                 {isOpenModal.state && (
-                  <Modal close={toggleModal} saveValue={saveValue} viewValue={isOpenModal.kind} >
+                  <Modal close={toggleModal} saveValue={saveValue} viewValue={isOpenModal.kind} takeValue={isOpenModal.takeValue}>
                     <Panel />
                   </Modal>
                 )}

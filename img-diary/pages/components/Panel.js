@@ -6,24 +6,24 @@ import { useState } from "react";
 
 const Panel = props => {
   const [formValue, setFormValue] = useState({
-    morning: null,
-    noon: null,
-    evening: null,
+    idx: null,
+    value: null
   });
 
+  // 入力フォームの値が変わった時の処理
   const handleChange = e => {
     console.log(props.viewValue);
     console.log(e.target.value);
     console.log(e.target.name);
     const value = e.target.value;
     const name = e.target.name;
-    setFormValue({ ...formValue, [name]: value});
-    props.saveValue(name,formValue[name]); 
+    setFormValue({ ...formValue, idx: name, value: value});
   }
-
+  
+  // 送信を押したときの処理
   const submit = e => {
-    console.log("morning as"+formValue.morning);
-    // e.preventDefault();
+    props.saveValue(formValue.idx, formValue.value); 
+    e.preventDefault();
     if (props.close) {
       props.close(e);
     }
@@ -40,6 +40,7 @@ const Panel = props => {
             </div>
             <div className="p-6 space-y-6">
               <textarea type="text" value={formValue[props.viewValue]} name={props.viewValue} id={props.viewValue} onChange={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
+                {props.takeValue}
               </textarea>
             </div>
             <div className="flex justify-end items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
