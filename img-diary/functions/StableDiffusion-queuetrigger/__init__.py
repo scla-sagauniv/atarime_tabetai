@@ -27,12 +27,9 @@ def main(msg: func.QueueMessage) -> None:
     #              msg.get_body().decode('utf-8'))
 
     message = msg.get_body().decode('utf-8')
-    prompt_list = message.split(',')
-    org_prompt = prompt_list[0]
-    gen_promp = prompt_list[1]
 
     answers = stability_api.generate(
-        prompt=org_prompt,
+        prompt=message,
     )
 
     for resp in answers:
@@ -43,7 +40,7 @@ def main(msg: func.QueueMessage) -> None:
                     "Please modify the prompt and try again.")
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                logging.info(org_prompt)
+                logging.info(message)
 
                 try:
 
@@ -55,26 +52,29 @@ def main(msg: func.QueueMessage) -> None:
                     blob_service_client = BlobServiceClient(
                         account_url, credential=default_credential)
                     # Create a local directory to hold blob data
-                    local_path = "./data"
-
+                    # local_path = "./StableDiffusion-queuetrigger/data"
                     # Create a file in the local data directory to upload and download
-                    local_file_name = str(uuid.uuid4()) + ".png"
-                    upload_file_path = os.path.join(
-                        local_path, local_file_name)
+                    blob_name = str(uuid.uuid4()) + ".png"
+                    # local_file_name = str(uuid.uuid4()) + ".png"
+                    # upload_file_path = os.path.join(
+                    #     local_path, local_file_name)
 
-                    img.save(upload_file_path)
+                    carta = io.BytesIO()
+                    img.save(carta, "PNG", quality=95)
 
                     # Create a blob client using the local file name as the name for the blob
                     blob_client = blob_service_client.get_blob_client(
-                        container="diary-images", blob=local_file_name)
+                        container="diary-images", blob=blob_name)
 
                     print("\nUploading to Azure Storage as blob:\n\t" +
-                          local_file_name)
+                          blob_name)
 
                     # Upload the created file
-                    with open(file=upload_file_path, mode="rb") as data:
-                        blob_client.upload_blob(data)
-                    os.remove(upload_file_path)
+                    # with open(file=upload_file_path, mode="rb") as data:
+                    #     blob_client.upload_blob(data)
+                    # os.remove(upload_file_path)
+                    data = carta.getvalue()
+                    blob_client.upload_blob(data)
 
                 except Exception as ex:
                     print('Exception:')

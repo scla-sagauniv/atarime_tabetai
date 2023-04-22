@@ -31,16 +31,15 @@ def main(req: func.HttpRequest, texts: func.Out[typing.List[str]]) -> func.HttpR
         "reply": resp_text
     }
     data = json.dumps(obj)
-    prompts = prompt + "," + resp_text
     # return func.HttpResponse(data)
 
     if resp_text:
-        texts.set(prompts)
-        return 'OK'
+        texts.set(prompt)
+        return func.HttpResponse(data)
     else:
         return func.HttpResponse(
             "No ChatGPT response.",
             status_code=200
         )
-    # texts.set("white cat,resp_text")
+    # texts.set(prompt)
     # return func.HttpResponse(prompt)
