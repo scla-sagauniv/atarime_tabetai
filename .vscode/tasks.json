@@ -9,7 +9,7 @@
       "isBackground": true,
       "dependsOn": "pip install (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/img-diary\\functions\\httptriggers"
+        "cwd": "${workspaceFolder}/img-diary\\functions"
       }
     },
     {
@@ -26,7 +26,7 @@
       },
       "problemMatcher": [],
       "options": {
-        "cwd": "${workspaceFolder}/img-diary\\functions\\httptriggers"
+        "cwd": "${workspaceFolder}/img-diary\\functions"
       }
     }
   ]
