@@ -23,10 +23,12 @@ const Modal = props => {
         onMouseUp={onMouseUp}
       >
         {/* Panelコンポーネントにプロップス渡す */}
+        {/* childrenをクローンして新しくPanelにプロップスを渡してる */}
           {React.cloneElement(props.children, {
             close: props.close,
             saveValue: props.saveValue,
-            viewValue: props.viewValue
+            viewValue: props.viewValue,
+            takeValue:props.takeValue
           })}
       </div>
   );
