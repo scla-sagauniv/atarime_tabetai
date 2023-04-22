@@ -17,7 +17,9 @@ const Panel = props => {
     console.log(e.target.name);
     const value = e.target.value;
     const name = e.target.name;
-    setFormValue({ ...formValue, idx: name, value: value});
+    setFormValue({ ...formValue, idx: e.target.name, value: e.target.value});
+    console.log(formValue.value);
+    props.saveValue(e.target.name, e.target.value); 
   }
   
   // 送信を押したときの処理
@@ -33,13 +35,14 @@ const Panel = props => {
     <>
       <div className="relative w-full mx-0 max-w-2xl">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <form>
             <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     できごとをかいてね
                 </h3>
             </div>
             <div className="p-6 space-y-6">
-              <textarea type="text" value={formValue[props.viewValue]} name={props.viewValue} id={props.viewValue} onChange={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
+              <textarea type="text" value={formValue[props.viewValue]} name={props.viewValue} id={props.viewValue}  onKeyUp={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
                 {props.takeValue}
               </textarea>
             </div>
@@ -51,6 +54,7 @@ const Panel = props => {
                   決定
                 </button>
             </div>
+          </form>
         </div>
       </div>
     </>
