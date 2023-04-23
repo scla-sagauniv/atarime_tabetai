@@ -54,7 +54,7 @@ def main(msg: func.QueueMessage) -> None:
                     # Create a local directory to hold blob data
                     # local_path = "./StableDiffusion-queuetrigger/data"
                     # Create a file in the local data directory to upload and download
-                    blob_name = str(uuid.uuid4()) + ".png"
+                    blob_name = "output.png"
                     # local_file_name = str(uuid.uuid4()) + ".png"
                     # upload_file_path = os.path.join(
                     #     local_path, local_file_name)
@@ -74,7 +74,7 @@ def main(msg: func.QueueMessage) -> None:
                     #     blob_client.upload_blob(data)
                     # os.remove(upload_file_path)
                     data = diary.getvalue()
-                    blob_client.upload_blob(data)
+                    blob_client.upload_blob(data, overwrite=True)
 
                 except Exception as ex:
                     print('Exception:')
