@@ -120,7 +120,6 @@ export default function Home() {
                 {/* 参考演算子でisOpenModal.stateが真なら表示 */}
                 {isOpenModal.state && (
                   <Modal close={toggleModal} saveValue={saveValue} lockman={lockman} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
-                    <Panel />
                   </Modal>
                 )}
               </div>
