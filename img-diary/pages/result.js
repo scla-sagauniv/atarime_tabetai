@@ -12,6 +12,7 @@ export default function  Home (props){
   const [articleTxt, setArticleTxt] = useState('テキストテキストテキストテキストテキストテキストテキストテキスト')
   const router = useRouter();
 
+
   const onClick_d = function (){
       console.log("konn")
   }
@@ -31,8 +32,8 @@ export default function  Home (props){
       <Link href="/result"/>
       <div>
           <Header /> 
-          <div className="">
-              <div className="text-center mt-20 text-xl font-bold md:text-3xl">！！完成！！</div>
+          <div>
+            <div className="text-center mt-20 text-xl font-bold md:text-3xl">！！完成！！</div>
               <Diary src={imgSrc} >
                 {articleTxt}
               </Diary>

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import React from "react";
+import Panel from "./Panel";
 
 const Modal = props => {
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -22,15 +24,7 @@ const Modal = props => {
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
       >
-        {/* Panelコンポーネントにプロップス渡す */}
-        {/* childrenをクローンして新しくPanelにプロップスを渡してる */}
-          {React.cloneElement(props.children, {
-            close: props.close,
-            lockman: props.lockman,
-            saveValue: props.saveValue,
-            viewValue: props.viewValue,
-            takeValue:props.takeValue,
-          })}
+        <Panel close={props.close} saveValue={props.saveValue} viewValue={props.viewValue} takeValue={props.takeValue} lockman={props.lockman}/>
       </div>
   );
 };
