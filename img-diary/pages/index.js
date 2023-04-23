@@ -3,6 +3,7 @@ import Button from "./components/Button";
 import { useState } from "react";
 import Modal from "./components/Modal";
 import Panel from "./components/Panel";
+import Router from "next/router";
 
 // モーダル参考サイト、多分ここ見たら理解しやすい
 // https://imatomix.com/imatomix/notes/1591689628000
@@ -15,7 +16,7 @@ export default function Home() {
   const[allValue, setAllValue] = useState({
     morning: "",
     noon: "",
-    evening: "",
+    evening: ""
   });
 
   
@@ -24,13 +25,6 @@ export default function Home() {
     noon: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
     evening: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",  
   });
-  
-  // const Classed =()=>{
-    //   if(allValue===null){
-  //     setAddClassed("px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl")
-  //   }
-
-  // }
   
   // 入力フォーム保存
   const saveValue = (time, tex) => {
@@ -49,12 +43,12 @@ export default function Home() {
     };  
   }
     
-    // モーダルの状態
-    const [isOpenModal, setIsOpenModal] = useState({
-      state:false,
-      kind:null,
-      takeValue:null
-    });
+  // モーダルの状態
+  const [isOpenModal, setIsOpenModal] = useState({
+    state:false,
+    kind:null,
+    takeValue:null
+  });
     
     
     // モーダルの開閉処理
@@ -83,13 +77,9 @@ export default function Home() {
             console.log("セーブデータ夜"+allValue.evening);
     }
   };
-  const hand_over =()=>{
-    
-    console.log("zakoga");
-  }
   const[tf , setTf]=useState(true);
   const [color , setColor]=useState("bg-white");
-
+  
   const lockman = () => {
     if(allValue.morning!=="" && allValue.noon!=="" && allValue.evening!==""){
       setTf(false)
@@ -98,6 +88,14 @@ export default function Home() {
       setTf(true)
       setColor("bg-white");
     }
+  }
+  
+  const hand_over =()=>{
+    Router.push({
+      pathname:"/result",
+      query: allValue
+    })
+    console.log("zakoga");
   }
 
   return (
