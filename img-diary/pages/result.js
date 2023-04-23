@@ -2,27 +2,30 @@ import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import Link from 'next/link';
 import Header from './components/Header';
-import { FetchStableDiffusion } from "@/lib/FetchStableDiffusion";
 import Diary from "./components/Diary";
+import { FetchChatgpt } from "@/lib/FetchChatgpt";
+import { useRouter } from 'next/router';
 
 
 export default function  Home (props){
-  const [imgSrc, setImgSrc] = useState('https://placehold.jp/800x500.png')
-  const [articleTxt, setArticleTxt] = useState('友達と公園でピクニックを楽しんだ。おいしいお弁当と飲み物を持って、芝生の上で過ごし、天気もよくて気持ちよかった。帰りに近くのカフェでケーキを食べて、一日中楽しんだ。友達との時間は本当に大切だなと思う。また次回も楽しみにしている。114文字。')
+  const [imgSrc, setImgSrc] = useState('https://zinbeea369.blob.core.windows.net/diary-images/output.png')
+  const [articleTxt, setArticleTxt] = useState('テキストテキストテキストテキストテキストテキストテキストテキスト')
+  const router = useRouter();
+
 
   const onClick_d = function (){
       console.log("konn")
   }
 
-  // useEffect(() => {
-  //   FetchStableDiffusion(props.query)
-  //   .then((data) => {
-  //     if(data){
-  //       setImgSrc(data)
-  //     }
-  //   }
-  //   )
-  // })
+  useEffect(() => {
+    FetchChatgpt(router.query.prompt)
+    .then((data) => {
+      if(data.reply){
+        setArticleTxt(data.reply)
+      }
+    }
+    ).catch((err) => console.log("error",err))
+  })
 
   return(
     <>
