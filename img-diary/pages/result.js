@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 export default function  Home (props){
   const [imgSrc, setImgSrc] = useState('https://zinbeea369.blob.core.windows.net/diary-images/output.png')
   const [articleTxt, setArticleTxt] = useState('テキストテキストテキストテキストテキストテキストテキストテキスト')
+  const [isOk, setIsOk] = useState(false)
   const router = useRouter();
 
 
@@ -37,21 +38,29 @@ export default function  Home (props){
     .then((data) => {
       if(data.reply){
         setArticleTxt(data.reply)
+        setIsOk(true)
       }
     }
     ).catch((err) => console.log("error",err))
   })
+  
+  // setTimeout(setImgSrc("https://zinbeea369.blob.core.windows.net/diary-images/output.png"),10000
+  // )
 
   return(
     <>
       <Link href="/result"/>
       <div>
           <Header /> 
-          <div className="">
-              <div className="text-center mt-20 text-xl font-bold md:text-3xl">！！完成！！</div>
-              <Diary>
+          <div>
+            <div className="text-center mt-20 text-xl font-bold md:text-3xl">！！完成！！</div>
+            
+              <div className="flex justify-center m-10">
+                {isOk?  <Diary src={imgSrc} >
+
                 {articleTxt}
-              </Diary>
+              </Diary>: <progress className="progress w-56"></progress>}
+              </div>
               <div className="flex justify-center m-10">
                 <Button onClick={pdhDownloadHandler}>
                   ダウンロード
