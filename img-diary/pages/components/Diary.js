@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 const Diary = ({ children, ...props }) => {
   return (
     <>
-      <div className="flex mt-10 mx-auto flex-col container w-64 md:max-w-xl">
-        <img {...props}></img>
+      <div id="diary" className="flex mt-10 mx-auto flex-col container w-64 md:max-w-xl">
+        <Image src="/favicon.ico" width={"256px"}></Image>
         <p className="inline pb-[1px] h-56 py-2 line-">{children}</p>
       </div>
     </>
