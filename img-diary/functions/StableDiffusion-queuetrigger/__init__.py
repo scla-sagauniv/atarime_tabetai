@@ -59,8 +59,8 @@ def main(msg: func.QueueMessage) -> None:
                     # upload_file_path = os.path.join(
                     #     local_path, local_file_name)
 
-                    carta = io.BytesIO()
-                    img.save(carta, "PNG", quality=95)
+                    diary = io.BytesIO()
+                    img.save(diary, "PNG", quality=95)
 
                     # Create a blob client using the local file name as the name for the blob
                     blob_client = blob_service_client.get_blob_client(
@@ -73,7 +73,7 @@ def main(msg: func.QueueMessage) -> None:
                     # with open(file=upload_file_path, mode="rb") as data:
                     #     blob_client.upload_blob(data)
                     # os.remove(upload_file_path)
-                    data = carta.getvalue()
+                    data = diary.getvalue()
                     blob_client.upload_blob(data)
 
                 except Exception as ex:
