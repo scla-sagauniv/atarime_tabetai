@@ -3,7 +3,7 @@ import Button from "./components/Button";
 import { useState } from "react";
 import Modal from "./components/Modal";
 import Panel from "./components/Panel";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 // モーダル参考サイト、多分ここ見たら理解しやすい
 // https://imatomix.com/imatomix/notes/1591689628000
@@ -13,6 +13,7 @@ export default function Home() {
 
   // const addClass = "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-cyan-200 text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
   // 入力フォームの状態
+  const router = useRouter();
   const[allValue, setAllValue] = useState({
     morning: "",
     noon: "",
@@ -91,9 +92,9 @@ export default function Home() {
   }
   
   const hand_over =()=>{
-    Router.push({
+    router.push({
       pathname:"/result",
-      query: allValue
+      query: {"prompt":allValue.morning + "," + allValue.noon + "," + allValue.evening }
     })
     console.log("zakoga");
   }
@@ -120,12 +121,11 @@ export default function Home() {
                 {/* 参考演算子でisOpenModal.stateが真なら表示 */}
                 {isOpenModal.state && (
                   <Modal close={toggleModal} saveValue={saveValue} lockman={lockman} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
-                    <Panel />
                   </Modal>
                 )}
               </div>
               <div className='flex justify-center '>
-                <Button disabled={tf} onClick={() => hand_over()} className={`disabled:opacity-100 px-12 md:py-4  md: mx-12 rounded border-2 border-black font-bold ${color} text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl`}>
+                <Button disabled={tf} onClick={() => hand_over()} className={`disabled:opacity-100 px-12 md:py-4  md: mx-12 rounded border-2 border-black font-bold ${color} text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default  text-xl md:text-2xl`}>
                   作成
                 </Button>
               </div>

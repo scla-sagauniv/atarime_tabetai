@@ -8,10 +8,10 @@
 module.exports = {
   async rewrites() {
     return [
-      {
-        source: '/Stablediffusion-httptrigger',
-        destination: 'https://atrm-functions.azurewebsites.net/api/StableDiffusion-httptrigger?',
-      },
+      // {
+      //   source: '/Stablediffusion-httptrigger',
+      //   destination: 'https://atrm-functions.azurewebsites.net/api/StableDiffusion-httptrigger?',
+      // },
       {
         source: '/Chatgpt-httptrigger',
         destination: 'https://atrm-functions.azurewebsites.net/api/Chatgpt-httptrigger?'

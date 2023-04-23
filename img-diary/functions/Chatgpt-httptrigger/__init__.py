@@ -4,23 +4,24 @@ import azure.functions as func
 import json
 import os
 import openai
+import typing
 
 openai.api_key = os.environ['CHATGPT_KEY']
 
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def main(req: func.HttpRequest, texts: func.Out[typing.List[str]]) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
     req_body_bytes = req.get_body()  # byte型で返ってくる
     req_body = req_body_bytes.decode("utf-8")  # デコードする
     data = json.loads(req_body)  # jsonとして読み込む
     prompt = data["prompt"]  # promptを取り出す
-
+    # logging.info(prompt)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "100字以内にまとめて"},
             {"role": "system", "content": "日記風で書いて"},  # 制約はなんとか考える
-            {"role": "user", "content": prompt},
+            {"role": "user", "content":  prompt},
         ],
     )
 
@@ -33,9 +34,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     # return func.HttpResponse(data)
 
     if resp_text:
+        texts.set(prompt)
         return func.HttpResponse(data)
     else:
         return func.HttpResponse(
             "No ChatGPT response.",
             status_code=200
         )
+    # texts.set(prompt)
+    # return func.HttpResponse(prompt)

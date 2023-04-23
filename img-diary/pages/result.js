@@ -6,14 +6,20 @@ import Diary from "./components/Diary";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
+import { FetchChatgpt } from "@/lib/FetchChatgpt";
+import { useRouter } from 'next/router';
+
 
 export default function  Home (props){
-  const [imgSrc, setImgSrc] = useState('https://placehold.jp/800x450.png')
+  const [imgSrc, setImgSrc] = useState('https://zinbeea369.blob.core.windows.net/diary-images/output.png')
   const [articleTxt, setArticleTxt] = useState('テキストテキストテキストテキストテキストテキストテキストテキスト')
+  const router = useRouter();
+
 
   const onClick_d = function (){
       console.log("konn")
   }
+
 
   const pdhDownloadHandler = () => {
     const target = document.getElementById('diary');
@@ -27,13 +33,13 @@ export default function  Home (props){
   };
 
   useEffect(() => {
-    FetchStableDiffusion(props.query)
+    FetchChatgpt(router.query.prompt)
     .then((data) => {
-      if(data){
-        setImgSrc(data)
+      if(data.reply){
+        setArticleTxt(data.reply)
       }
     }
-    )
+    ).catch((err) => console.log("error",err))
   })
 
   return(
