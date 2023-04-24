@@ -22,7 +22,7 @@ export default function Home() {
 
   
   const[addClassed , setAddClassed] = useState({
-    morning: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
+    morning: " px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
     noon: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
     evening: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",  
   });
@@ -106,8 +106,8 @@ export default function Home() {
           <Header />
           <div className='flex justify-center px-xl'>
             <div className='container px-4'>
-              <p className='text-center mb-20 mt-32 text-xl md:text-5xl font-bold '>AIちゃんの絵日記</p>
-              <p className='text-center my-10 text-xl md:text-3xl font-bold'>今日あった出来事を朝昼晩に分けて<br/>簡単に入力するとAIちゃんが絵日記にしてくれます！！</p>
+              <p className='text-center mb-20 mt-32 text-xl text-black md:text-5xl font-bold '>AIちゃんの絵日記</p>
+              <p className='text-center my-10 text-xl md:text-3xl text-black font-bold'>今日あった出来事を朝昼晩に分けて<br/>簡単に入力するとAIちゃんが絵日記にしてくれます！！</p>
               <div className='mx-auto my-10 flex justify-center'>
                 <Button type="button" onClick={() => toggleModal(true,"morning")} className={addClassed.morning}>
                   朝
