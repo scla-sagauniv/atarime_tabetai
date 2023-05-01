@@ -1,34 +1,16 @@
 import React from "react";
-import { Button } from "./Button";
-import { stringify } from "postcss";
-import { useState } from "react";
+import { useForm } from 'react-hook-form';
 
 
 const Panel = props => {
-  const [formValue, setFormValue] = useState({
-    idx: null,
-    value: null
-  });
-
-  // 入力フォームの値が変わった時の処理
-  const handleChange = e => {
-    console.log(props.viewValue);
-    console.log(e.target.value);
-    console.log(e.target.name);
-    const value = e.target.value;
-    const name = e.target.name;
-    setFormValue({ ...formValue, idx: e.target.name, value: e.target.value});
-    console.log(formValue.value);
-    props.saveValue(e.target.name, e.target.value);
-  }
+  const { register, handleSubmit } = useForm();
   
   // 送信を押したときの処理
-  const submit = e => {
-    props.saveValue(formValue.idx, formValue.value);
-    props.lockman();
-    e.preventDefault();
+  const onSubmit = (data) => {
+    console.log(data[props.viewValue]);
+    props.saveValue(props.viewValue,data[props.viewValue]);
     if (props.close) {
-      props.close(e);
+      props.close(false, props.viewValue);
     }
   };
 
@@ -36,14 +18,14 @@ const Panel = props => {
     <>
       <div className="relative w-full mx-0 max-w-2xl">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     できごとをかいてね
                 </h3>
             </div>
             <div className="p-6 space-y-6">
-              <textarea type="text" name={props.viewValue} id={props.viewValue} onKeyUp={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
+              <textarea type="text" name={props.viewValue} id={props.viewValue} {...register(props.viewValue)} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
                 {props.takeValue}
               </textarea>
             </div>
@@ -51,7 +33,7 @@ const Panel = props => {
                 <button onClick={props.close} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                   キャンセル
                 </button> 
-                <button onClick={submit} type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   決定
                 </button>
             </div>
@@ -59,20 +41,6 @@ const Panel = props => {
         </div>
       </div>
     </>
-    // <section classNameName="container">
-    //   <header>
-    //     <h3>Modal Panel!</h3>
-    //   </header>
-    //   <div>Hi! Nice to meet you!</div>
-    //   <footer>
-    //     <button type="button" onClick={props.close}>
-    //       Cancel
-    //     </button>
-    //     <button type="submit" onClick={submit}>
-    //       OK
-    //     </button>
-    //   </footer>
-    // </section>
   );
 };
 

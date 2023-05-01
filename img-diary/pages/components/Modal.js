@@ -24,7 +24,7 @@ const Modal = props => {
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
       >
-        <Panel close={props.close} saveValue={props.saveValue} viewValue={props.viewValue} takeValue={props.takeValue} lockman={props.lockman}/>
+        <Panel close={props.close} saveValue={props.saveValue} viewValue={props.viewValue} takeValue={props.takeValue}/>
       </div>
   );
 };
