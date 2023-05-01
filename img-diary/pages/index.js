@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import Button from "./components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./components/Modal";
 import Panel from "./components/Panel";
 import { useRouter } from "next/router";
@@ -49,12 +49,15 @@ export default function Home() {
         ...addClassed, [time]:changeButtonStyle
       });
     };
-
+  }
+  
+  // allValue確認用
+  useEffect(() => {
+    lockman()
     console.log("セーブデータ朝"+allValue.morning);
     console.log("セーブデータ昼"+allValue.noon);
     console.log("セーブデータ夜"+allValue.evening);
-  }
-    
+  },[allValue])
     
     
     // モーダルの開閉処理
@@ -120,7 +123,7 @@ export default function Home() {
                 </Button>
                 {/* 参考演算子でisOpenModal.stateが真なら表示 */}
                 {isOpenModal.state && (
-                  <Modal close={toggleModal} saveValue={saveValue} lockman={lockman} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
+                  <Modal close={toggleModal} saveValue={saveValue} viewValue={isOpenModal.kind} takeValue={allValue[isOpenModal.kind]}>
                   </Modal>
                 )}
               </div>
