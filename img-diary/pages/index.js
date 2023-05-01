@@ -11,7 +11,8 @@ import { useRouter } from "next/router";
 
 export default function Home() {
 
-  // const addClass = "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-cyan-200 text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
+  const defaultButtonStyle = "px-8 md:py-4 my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
+  const changeButtonStyle = "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold text-black bg-cyan-200 shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl";
   // 入力フォームの状態
   const router = useRouter();
   const[allValue, setAllValue] = useState({
@@ -19,63 +20,62 @@ export default function Home() {
     noon: "",
     evening: ""
   });
-
   
+  // 
   const[addClassed , setAddClassed] = useState({
-    morning: " px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
-    noon: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",
-    evening: "px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl",  
+    morning: defaultButtonStyle,
+    noon: defaultButtonStyle,
+    evening: defaultButtonStyle,  
   });
   
-  // 入力フォーム保存
-  const saveValue = (time, tex) => {
-    setAllValue({...allValue, [time]:tex});
-    
-    if(allValue[time]===""){
-      console.log("nochange");
-      setAddClassed({
-        ...addClassed,[time]:"px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold bg-white text-black  shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl"
-      });
-    }else{
-      console.log("change");
-      setAddClassed({
-        ...addClassed,[time]:"px-8 md:py-4  my-10 md: mx-12 rounded border-2 border-black font-bold text-black bg-cyan-200 shadow-md transition-all duration-1000 ease-out hover:shadow-none disabled:cursor-default disabled:opacity-50 text-xl md:text-2xl"
-      });
-    };  
-  }
-    
   // モーダルの状態
   const [isOpenModal, setIsOpenModal] = useState({
     state:false,
     kind:null,
     takeValue:null
   });
+  // 入力フォーム保存
+  const saveValue = (time, tex) => {
+    setAllValue({...allValue, [time]:tex});
+
+    if(tex===""){
+      console.log("nochange");
+      setAddClassed({
+        ...addClassed, [time]:defaultButtonStyle
+      });
+    }else{
+      console.log("change");
+      setAddClassed({
+        ...addClassed, [time]:changeButtonStyle
+      });
+    };
+
+    console.log("セーブデータ朝"+allValue.morning);
+    console.log("セーブデータ昼"+allValue.noon);
+    console.log("セーブデータ夜"+allValue.evening);
+  }
+    
     
     
     // モーダルの開閉処理
   const toggleModal = (e,i) => {
-    let idx = null;
+    let idx = i;
     if (e.target === e.currentTarget) {
-      switch(i){
+      switch(idx){
         case "morning":
           idx = i;
           console.log(idx);
           break;
-          case "noon":
-            idx = i;
-            console.log(idx);
-            break;
-            case "evening":
-              idx = i;
-              console.log(idx);
-              break;
-            }
-            
-            
-            setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx, takeValue: allValue[idx]}); 
-            console.log("セーブデータ朝"+allValue.morning);
-            console.log("セーブデータ昼"+allValue.noon);
-            console.log("セーブデータ夜"+allValue.evening);
+        case "noon":
+          idx = i;
+          console.log(idx);
+          break;
+        case "evening":
+          idx = i;
+          console.log(idx);
+          break;
+      }
+      setIsOpenModal({...isOpenModal, state:!isOpenModal.state, kind: idx, takeValue: allValue[idx]}); 
     }
   };
   const[tf , setTf]=useState(true);

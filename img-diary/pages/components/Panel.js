@@ -19,12 +19,12 @@ const Panel = props => {
     const name = e.target.name;
     setFormValue({ ...formValue, idx: e.target.name, value: e.target.value});
     console.log(formValue.value);
-    props.saveValue(e.target.name, e.target.value); 
+    props.saveValue(e.target.name, e.target.value);
   }
   
   // 送信を押したときの処理
   const submit = e => {
-    props.saveValue(formValue.idx, formValue.value); 
+    props.saveValue(formValue.idx, formValue.value);
     props.lockman();
     e.preventDefault();
     if (props.close) {
@@ -43,7 +43,7 @@ const Panel = props => {
                 </h3>
             </div>
             <div className="p-6 space-y-6">
-              <textarea type="text" value={formValue[props.viewValue]} name={props.viewValue} id={props.viewValue}  onKeyUp={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
+              <textarea type="text" name={props.viewValue} id={props.viewValue} onKeyUp={handleChange} placeholder="やったこと..." maxlength="150" className=" text-slate-400 text-xl p-2.5 dark:bg-gray-700 border rounded-sm w-full dark:border-gray-500 leading-5 h-56">
                 {props.takeValue}
               </textarea>
             </div>

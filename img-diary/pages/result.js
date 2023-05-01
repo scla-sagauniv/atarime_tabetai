@@ -24,6 +24,7 @@ export default function  Home (props){
 
   const pdhDownloadHandler = () => {
     const target = document.getElementById('diary');
+
     if (target === null) return;
     html2canvas(target, { scale: 2.5 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/svg', 1.0);
@@ -31,6 +32,7 @@ export default function  Home (props){
       pdf.addImage(imgData, 'SVG', 5, 10, canvas.width / 18, canvas.height / 18);
       pdf.save(`test.pdf`);
     });
+    
   };
 
   useEffect(() => {
