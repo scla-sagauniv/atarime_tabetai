@@ -56,10 +56,8 @@ export default function  Home (props){
           <Header /> 
           <div>
             <div className="text-center mt-20 text-xl font-bold md:text-3xl">！！完成！！</div>
-            
               <div className="flex justify-center m-10">
                 {isOk?  <Diary src={imgSrc} >
-
                 {articleTxt}
               </Diary>: <progress className="progress w-56"></progress>}
               </div>
@@ -68,11 +66,8 @@ export default function  Home (props){
                   ダウンロード
                 </Button>
               </div>
-
           </div>
       </div>
-
     </>
-
   )
 }
