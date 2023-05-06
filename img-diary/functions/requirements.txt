@@ -7,3 +7,4 @@ stability_sdk
 openai
 azure.identity
 azure.storage.blob
+supabase

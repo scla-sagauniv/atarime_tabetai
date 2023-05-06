@@ -5,7 +5,9 @@ import azure.functions as func
 import io
 import os
 import json
-import base64
+import uuid
+import supabase
+# import base64
 # from PIL import Image
 from dotenv import load_dotenv
 from stability_sdk import client
@@ -17,6 +19,9 @@ stability_api = client.StabilityInference(
     key=os.environ['STABILITY_KEY'],
     verbose=True,
 )
+# supabase準備
+supabase_url = 'https://tjqqjderebfvgebxuppx.supabase.co'
+supabase_key = os.environ['SUPABASE_KEY']
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -38,11 +43,21 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                     "Please modify the prompt and try again.")
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = io.BytesIO(artifact.binary)
-                img_bytes = base64.b64encode(
-                    img.getvalue())  # bytesIO型からbytes型にエンコード
-                img_base64 = img_bytes.decode()  # bytes型からstr型にデコード
+                binary_data = img.getvalue()
+                client = supabase.create_client(supabase_url, supabase_key)
+                bucket = 'img_diary'
+                file_name = str(uuid.uuid4()) + ".png"
+                response = client.storage.from_(
+                    bucket).upload(file_name, binary_data)
+                logging.info('Upload successful')
+                url_signed = client.storage.from_(
+                    bucket).create_signed_url(file_name, 60000)
+                logging.info(url_signed)
+                url_puplic = client.storage.from_(
+                    bucket).get_public_url(file_name)
                 obj = {
-                    "img_base64": img_base64
+                    "signed": url_signed["signedURL"],
+                    "public": url_puplic
                 }
                 data = json.dumps(obj)
                 return func.HttpResponse(data)
