@@ -32,6 +32,5 @@ module.exports = {
       };
       addUtilities(newUtilities);
     }),
-    require("daisyui"),
   ],
 }
