@@ -1,9 +1,7 @@
 import Header from './components/Header';
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient('https://tjqqjderebfvgebxuppx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcXFqZGVyZWJmdmdlYnh1cHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMzNTQzODMsImV4cCI6MTk5ODkzMDM4M30.tYoDUcg_VC3TRhYxD833sQwVcK6_okXkKWUiWhVR1yo')
+import { supabase } from '../supabase';
 
 export default function Home() {
   return (
