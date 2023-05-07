@@ -4,12 +4,11 @@ import azure.functions as func
 import json
 import os
 import openai
-import typing
 
 openai.api_key = os.environ['CHATGPT_KEY']
 
 
-def main(req: func.HttpRequest, texts: func.Out[typing.List[str]]) -> func.HttpResponse:
+def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
     req_body_bytes = req.get_body()  # byte型で返ってくる
     req_body = req_body_bytes.decode("utf-8")  # デコードする
@@ -34,7 +33,6 @@ def main(req: func.HttpRequest, texts: func.Out[typing.List[str]]) -> func.HttpR
     # return func.HttpResponse(data)
 
     if resp_text:
-        texts.set(prompt)
         return func.HttpResponse(data)
     else:
         return func.HttpResponse(
