@@ -20,7 +20,6 @@ export default function Home() {
   return (
     <>
       <div>
-        <Header/>
         <main className='flex justify-center'>
           <div className=' px-2 container'>
             <p className='text-center mb-11 mt-32 text-xl md:text-5xl font-bold '>AIちゃんの絵日記</p>
